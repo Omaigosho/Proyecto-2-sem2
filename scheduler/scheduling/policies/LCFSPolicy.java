@@ -1,7 +1,7 @@
 /* LCFSPolicy.java */
 /**
-** Hecho por: Abigail Carrillo
-** Carnet: 2500761
+** Hecho por: Eskarlett Abigail Carrillo Carrillo
+** Carnet: 25000761
 ** Seccion: B
 **/
 
