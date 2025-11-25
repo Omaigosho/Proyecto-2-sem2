@@ -12,6 +12,7 @@ import scheduler.processing.SimpleProcess;
  ** Seccion: B
 */
 
+//Esta clase implementa el uso de una un politica donde los .
 public class PriorityPolicy extends Policy {
 
     // Clase simple para guardar proceso, prioridad y orden de llegada
@@ -26,7 +27,6 @@ public class PriorityPolicy extends Policy {
             orden = ord;
         }
 
-        @Override
         public String toString(){
             return proceso.toString() + "[prio:" + prioridad + "]";
         }
@@ -42,7 +42,6 @@ public class PriorityPolicy extends Policy {
 
         filaProcesos = new PriorityQueue<>(
             new Comparator<PriorityPack>() {
-                @Override
                 public int compare(PriorityPack a, PriorityPack b){
                     int cmp = Integer.compare(a.prioridad, b.prioridad);
                     if(cmp != 0) return cmp;
@@ -52,23 +51,21 @@ public class PriorityPolicy extends Policy {
         );
     }
 
-    @Override
     public SimpleProcess next(){
         PriorityPack pack = filaProcesos.peek();
         if(pack == null) return null;
         return pack.proceso;
     }
 
-    @Override
     public void remove(){
         PriorityPack eliminado = filaProcesos.poll();
         if(eliminado != null){
             size--;
         }
     }
+    
 
     // ESTE ES EL MÉTODO QUE EXIGÍA enqueueable: SOLO RECIBE SimpleProcess
-    @Override
     public void add(SimpleProcess p){
         if(p == null) return;
 
@@ -81,7 +78,7 @@ public class PriorityPolicy extends Policy {
         totalProcesses++;
     }
 
-    @Override
+
     public String toString(){
         StringBuilder sb = new StringBuilder();
         sb.append("PriorityPolicy { size=").append(size)
