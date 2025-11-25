@@ -1,3 +1,13 @@
+/*Generador.java*/
+
+/**
+ * @author Edson Pereira
+ * @carnet 25000144
+ * @seccion B
+ */
+
+/*Generador.java sirve para generar procesos de manera aleatoria 
+e ingresarlos a la politica que se este usando en ese momento */
 package scheduler.processing;
 
 import java.util.Random;

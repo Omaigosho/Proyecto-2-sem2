@@ -5,6 +5,9 @@
  * Carnet: 25000144
  * Sección: B
  */
+
+/* LoopProcess.java es uno de los tipos de procesos que se pueden generar,
+especificamente el tipo de proceso Bucle */
 package scheduler.processing;
 
 public class LoopProcess extends SimpleProcess {

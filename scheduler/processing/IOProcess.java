@@ -1,10 +1,14 @@
 /* IOProcess.java */
 
 /**
- * Hecho por : Edson Pereira
- * Carnet: 25000144
- * Sección: B
+ * @author Edson Pereira
+ * @carnet 25000144
+ * @seccion B
  */
+
+/* IOProcess.java es uno de los tipos de procesos que se pueden generar, 
+especificamente el tipo de proceso Input/Output */
+
 package scheduler.processing;
 
 public class IOProcess extends SimpleProcess {

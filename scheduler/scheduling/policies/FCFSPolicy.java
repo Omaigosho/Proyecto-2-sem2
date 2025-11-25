@@ -5,6 +5,9 @@
  * Carnet: 25000144
  * Sección: B
  */
+
+/* FCFSPolicy.java es la clase que implementa la FCFS policy, 
+osea la politica donde el proceso en llegar primero es el proceso en atenderse primero  */
 package scheduler.scheduling.policies;
 
 import java.util.concurrent.ConcurrentLinkedQueue;

@@ -5,16 +5,31 @@ import scheduler.scheduling.policies.Policy;
 
 public class Procesador implements Runnable {
 
+    // Política de planificación que administra la cola de procesos.
     private final Policy policy;
+
+    // Flag para detener la ejecución del procesador.
     private final AtomicBoolean continueGen;
+
+    // Estadísticas generales de los procesos.
     private final Stats stats;
 
+    /**
+     * Constructor del procesador.
+     *
+     * @param policy      política de planificación compartida
+     * @param continueGen bandera para detener la ejecución del procesador
+     * @param stats       estadísticas generales de los procesos
+     */
     public Procesador(Policy policy, AtomicBoolean continueGen, Stats stats) {
         this.policy = policy;
         this.continueGen = continueGen;
         this.stats = stats;
     }
 
+    /**
+     * Método principal que ejecuta el procesador.
+     */
     @Override
     public void run() {
         while (continueGen.get()) {
@@ -33,7 +48,8 @@ public class Procesador implements Runnable {
 
                 double serviceMs = obtenerTiempoServicio(proc);
 
-                System.out.println("\n[CPU] Atendiendo proceso: " + proc.toString());
+                System.out.println("");
+                System.out.println("[CPU] Atendiendo proceso: " + proc.toString());
                 System.out.println("[CPU] Tiempo de servicio: " + serviceMs + " ms");
                 System.out.println("[CPU] Política usada: " + policy.getClass().getSimpleName());
                 System.out.println("[CPU] Procesos completados hasta ahora: " + stats.getCompletedTotal());
@@ -55,6 +71,12 @@ public class Procesador implements Runnable {
         System.out.println("[CPU] Terminando ejecución del procesador...");
     }
 
+    /**
+     * Obtiene el tiempo de servicio de un proceso.
+     *
+     * @param p el proceso
+     * @return el tiempo de servicio en milisegundos
+     */
     private double obtenerTiempoServicio(SimpleProcess p) {
         if (p instanceof ArithProcess) {
             return ((ArithProcess) p).processTimeMS();
@@ -69,7 +91,6 @@ public class Procesador implements Runnable {
             return ((LoopProcess) p).processTimeMS();
         }
 
-        // fallback en caso de que agreguen más procesos
         return 0;
     }
 }
