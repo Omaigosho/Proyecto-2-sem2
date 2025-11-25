@@ -29,6 +29,15 @@ public class Procesador implements Runnable {
 
     /**
      * Método principal que ejecuta el procesador.
+     * Escanea la estructura de datos de la politica para obtener el siguiente
+     * proceso.
+     * 
+     * Imprime el proceso que se está ejecutando junto con el tiempo de servicio y
+     * la politica usada.
+     * Al finalizar el proceso, se actualizan las estadisticas del procesador.
+     * Se imprime el estado de la politica y el total de procesos completados.
+     * 
+     * @throws Exception si ocurre un error al ejecutar el procesador
      */
     @Override
     public void run() {

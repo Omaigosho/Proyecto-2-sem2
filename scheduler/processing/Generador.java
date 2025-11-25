@@ -73,6 +73,15 @@ public class Generador implements Runnable {
 
     /**
      * Método principal que ejecuta el generador de procesos.
+     * De manera aleatoria se generan procesos de tipo aritmético, de I/O,
+     * condicional y de loop.
+     * 
+     * En funcion del proceso que se genere, se le asigna un tiempo de
+     * procesamiento y se lo agrega a la politica.
+     * 
+     * Aparte, se actualizan las estadisticas globales.
+     * 
+     * @throws Exception si ocurre un error al generar procesos
      */
     @Override
     public void run() {

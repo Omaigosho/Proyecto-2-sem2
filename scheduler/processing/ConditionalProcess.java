@@ -1,23 +1,40 @@
 package scheduler.processing;
 
-/* PriorityProcess.java */
+/* ConditionalProcess.java */
 /**
  ** Hecho por: Carlos Augusto Gonzalez Paiz.
  ** Carnet: 25000624.
  ** Seccion: B.
-*/
+ */
 
-public class ConditionalProcess extends SimpleProcess{
+/*
+ * Clase que representa un proceso condicional.
+ */
+public class ConditionalProcess extends SimpleProcess {
+    /*
+     * Tiempo de procesamiento del proceso.
+     */
     double Tiempo;
 
-    ConditionalProcess(int ID, double Time){
+    /*
+     * Constructor de la clase ConditionalProcess.
+     */
+    ConditionalProcess(int ID, double Time) {
         super(ID);
         this.Tiempo = Time;
     }
-    public double processTimeMs(){
+
+    /*
+     * Método que devuelve el tiempo de procesamiento en milisegundos.
+     */
+    public double processTimeMs() {
         return Tiempo * 1000;
     }
-    public String tipoProceso(){
+
+    /*
+     * Método que devuelve el tipo de proceso.
+     */
+    public String tipoProceso() {
         return "C";
     }
 }

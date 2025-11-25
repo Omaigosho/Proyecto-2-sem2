@@ -1,3 +1,4 @@
+/*PriorityPolicy.java */
 package scheduler.scheduling.policies;
 
 import java.util.PriorityQueue;
@@ -5,7 +6,6 @@ import java.util.Comparator;
 import java.util.concurrent.ThreadLocalRandom;
 import scheduler.processing.SimpleProcess;
 
-/* PriorityProcess.java */
 /**
  ** Hecho por: Carlos Augusto González Paiz y Edson Joao Andrés Pereira Alvarado.
  ** Carnet: 25000624 y 25000144.
@@ -14,24 +14,34 @@ import scheduler.processing.SimpleProcess;
 
 public class PriorityPolicy extends Policy {
 
-    // Clase simple para guardar proceso, prioridad y orden de llegada
+    /* Clase simple para guardar proceso, prioridad y orden de llegada */
     class PriorityPack {
+        // Proceso simple que se guardará en la cola
         SimpleProcess proceso;
+        // Prioridad del proceso
         int prioridad;
+        // Orden de llegada del proceso
         long orden;
 
+        // Constructor
         public PriorityPack(SimpleProcess p, int prio, long ord) {
             proceso = p;
             prioridad = prio;
             orden = ord;
         }
 
+        // Método para convertir el objeto a String
         @Override
         public String toString() {
             return proceso.toString() + "[prio:" + prioridad + "]";
         }
     }
 
+    /*
+     * Cola de prioridad que se encarga de ordenar los procesos.
+     * Estan ordenados en paquetes, con el proceso en cuestion, su prioridad y su
+     * orden de llegada.
+     */
     PriorityQueue<PriorityPack> filaProcesos;
     long nextOrden;
     final int MAX_PRIORITY = 3;
@@ -41,17 +51,17 @@ public class PriorityPolicy extends Policy {
         nextOrden = 0;
 
         filaProcesos = new PriorityQueue<>(
-                new Comparator<PriorityPack>() {
-                    @Override
-                    public int compare(PriorityPack a, PriorityPack b) {
-                        int cmp = Integer.compare(a.prioridad, b.prioridad);
-                        if (cmp != 0)
-                            return cmp;
-                        return Long.compare(a.orden, b.orden);
-                    }
-                });
+                Comparator.comparingInt((PriorityPack p) -> p.prioridad)
+                        .thenComparingLong(p -> p.orden));
     }
 
+    /*
+     * METODO SOBREESCRITO
+     * Nombre del Método: next()
+     * Parámetro: Sin parámetros
+     * Utilidad: nos devuelve cuál será el proximo proceso en ser atendido, sin
+     * sacarlo de la pila
+     */
     @Override
     public SimpleProcess next() {
         PriorityPack pack = filaProcesos.peek();
@@ -60,6 +70,12 @@ public class PriorityPolicy extends Policy {
         return pack.proceso;
     }
 
+    /*
+     * METODO SOBREESCRITO
+     * Nombre del Método: remove()
+     * Parámetro: Sin parámetros
+     * Utilidad: saca el proceso que se encuentra en la cima de la pila
+     */
     @Override
     public void remove() {
         PriorityPack eliminado = filaProcesos.poll();
@@ -68,7 +84,12 @@ public class PriorityPolicy extends Policy {
         }
     }
 
-    // ESTE ES EL MÉTODO QUE EXIGÍA enqueueable: SOLO RECIBE SimpleProcess
+    /*
+     * METODO SOBREESCRITO
+     * Nombre del Método: add()
+     * Parámetro: SimpleProcess p
+     * Utilidad: agrega un proceso a la pila
+     */
     @Override
     public void add(SimpleProcess p) {
         if (p == null)
@@ -83,6 +104,12 @@ public class PriorityPolicy extends Policy {
         totalProcesses++;
     }
 
+    /*
+     * METODO SOBREESCRITO
+     * Nombre del Método: toString()
+     * Parámetro: Sin parámetros
+     * Utilidad: nos devuelve una representación en String de la Fila de Procesos
+     */
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

@@ -158,6 +158,11 @@ public class Stats {
         return totalSeconds / completedTotal;
     }
 
+    /**
+     * Devuelve una representación en String de las estadísticas.
+     * 
+     * @return una representación en String de las estadísticas.
+     */
     @Override
     public synchronized String toString() {
         return "Stats{" +
