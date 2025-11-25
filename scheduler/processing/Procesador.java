@@ -84,8 +84,8 @@ public class Procesador implements Runnable {
         if (p instanceof IOProcess) {
             return ((IOProcess) p).processTimeMS();
         }
-        if (p instanceof CondProcess) {
-            return ((CondProcess) p).processTimeMS();
+        if (p instanceof ConditionalProcess) {
+            return ((ConditionalProcess) p).processTimeMs();
         }
         if (p instanceof LoopProcess) {
             return ((LoopProcess) p).processTimeMS();

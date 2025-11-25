@@ -5,9 +5,9 @@ import scheduler.processing.Generador;
 import scheduler.processing.Procesador;
 import scheduler.processing.Stats;
 import scheduler.scheduling.policies.FCFSPolicy;
-import scheduler.scheduling.policies.PPPolicy;
 import scheduler.scheduling.policies.LCFSPolicy;
 import scheduler.scheduling.policies.Policy;
+import scheduler.scheduling.policies.PriorityPolicy;
 
 public class ProcessScheduler {
     public static void main(String[] args) {
@@ -69,7 +69,7 @@ public class ProcessScheduler {
                 policy = new FCFSPolicy();
                 break;
             case "-pp":
-                policy = new PPPolicy();
+                policy = new PriorityPolicy();
                 break;
             case "-lcfs":
                 policy = new LCFSPolicy();
@@ -138,7 +138,6 @@ public class ProcessScheduler {
         System.out.println("  Loop:        " + stats.getGeneratedLoop());
         System.out.println("Procesos completados: " + stats.getCompletedTotal());
         System.out.println("Procesos restantes en la cola: " + policy.size());
-        System.out.println("Tiempo promedio de servicio (s): " + stats.getAverageServiceTimeSeconds());
         System.out.println("==========================");
     }
 }

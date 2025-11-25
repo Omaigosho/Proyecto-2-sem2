@@ -10,7 +10,7 @@ import scheduler.processing.SimpleProcess;
  ** Hecho por: Carlos Augusto González Paiz y Edson Joao Andrés Pereira Alvarado.
  ** Carnet: 25000624 y 25000144.
  ** Seccion: B
-*/
+ */
 
 public class PriorityPolicy extends Policy {
 
@@ -20,57 +20,59 @@ public class PriorityPolicy extends Policy {
         int prioridad;
         long orden;
 
-        public PriorityPack(SimpleProcess p, int prio, long ord){
+        public PriorityPack(SimpleProcess p, int prio, long ord) {
             proceso = p;
             prioridad = prio;
             orden = ord;
         }
 
         @Override
-        public String toString(){
+        public String toString() {
             return proceso.toString() + "[prio:" + prioridad + "]";
         }
     }
 
     PriorityQueue<PriorityPack> filaProcesos;
     long nextOrden;
-    final int MAX_PRIORITY = 5;
+    final int MAX_PRIORITY = 3;
 
-    public PriorityPolicy(){
+    public PriorityPolicy() {
         super();
         nextOrden = 0;
 
         filaProcesos = new PriorityQueue<>(
-            new Comparator<PriorityPack>() {
-                @Override
-                public int compare(PriorityPack a, PriorityPack b){
-                    int cmp = Integer.compare(a.prioridad, b.prioridad);
-                    if(cmp != 0) return cmp;
-                    return Long.compare(a.orden, b.orden);
-                }
-            }
-        );
+                new Comparator<PriorityPack>() {
+                    @Override
+                    public int compare(PriorityPack a, PriorityPack b) {
+                        int cmp = Integer.compare(a.prioridad, b.prioridad);
+                        if (cmp != 0)
+                            return cmp;
+                        return Long.compare(a.orden, b.orden);
+                    }
+                });
     }
 
     @Override
-    public SimpleProcess next(){
+    public SimpleProcess next() {
         PriorityPack pack = filaProcesos.peek();
-        if(pack == null) return null;
+        if (pack == null)
+            return null;
         return pack.proceso;
     }
 
     @Override
-    public void remove(){
+    public void remove() {
         PriorityPack eliminado = filaProcesos.poll();
-        if(eliminado != null){
+        if (eliminado != null) {
             size--;
         }
     }
 
     // ESTE ES EL MÉTODO QUE EXIGÍA enqueueable: SOLO RECIBE SimpleProcess
     @Override
-    public void add(SimpleProcess p){
-        if(p == null) return;
+    public void add(SimpleProcess p) {
+        if (p == null)
+            return;
 
         int prioridad = ThreadLocalRandom.current().nextInt(1, MAX_PRIORITY + 1);
         PriorityPack pack = new PriorityPack(p, prioridad, nextOrden++);
@@ -82,15 +84,16 @@ public class PriorityPolicy extends Policy {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("PriorityPolicy { size=").append(size)
-          .append(", totalProcesses=").append(totalProcesses())
-          .append(", queue=[");
+                .append(", totalProcesses=").append(totalProcesses())
+                .append(", Queue=[");
 
         boolean first = true;
-        for(PriorityPack pack : filaProcesos){
-            if(!first) sb.append(", ");
+        for (PriorityPack pack : filaProcesos) {
+            if (!first)
+                sb.append(", ");
             sb.append(pack.toString());
             first = false;
         }

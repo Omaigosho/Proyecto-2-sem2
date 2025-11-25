@@ -102,7 +102,7 @@ public class Generador implements Runnable {
                         break;
                     case 2:
                         randProcTime = cond;
-                        randProc = new CondProcess(corrID++, randProcTime);
+                        randProc = new ConditionalProcess(corrID++, randProcTime);
                         stats.incrementGeneratedCond();
                         break;
                     case 3:
