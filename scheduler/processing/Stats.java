@@ -167,6 +167,6 @@ public class Stats {
                 ", Procesos cond =" + generatedCond +
                 ", Procesos loop =" + generatedLoop +
                 ", Procesos completados =" + completedTotal +
-                ", Tiempo total de servicio =" + totalServiceTimeMillis;
+                ", Tiempo total de servicio =" + totalServiceTimeMillis + "}";
     }
 }

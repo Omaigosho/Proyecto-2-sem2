@@ -92,7 +92,7 @@ public class Generador implements Runnable {
                 switch (randProcChar) {
                     case 0:
                         randProcTime = arith;
-                        randProc = new ArithProcess(corrID++, randProcTime);
+                        randProc = new ArithmeticProcess(corrID++, randProcTime);
                         stats.incrementGeneratedArith();
                         break;
                     case 1:

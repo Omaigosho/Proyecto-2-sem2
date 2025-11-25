@@ -78,8 +78,8 @@ public class Procesador implements Runnable {
      * @return el tiempo de servicio en milisegundos
      */
     private double obtenerTiempoServicio(SimpleProcess p) {
-        if (p instanceof ArithProcess) {
-            return ((ArithProcess) p).processTimeMS();
+        if (p instanceof ArithmeticProcess) {
+            return ((ArithmeticProcess) p).tiempoProceso() * 1000;
         }
         if (p instanceof IOProcess) {
             return ((IOProcess) p).processTimeMS();
