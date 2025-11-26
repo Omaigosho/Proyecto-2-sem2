@@ -8,31 +8,26 @@ package scheduler.processing;
  */
 
 /*
- * Clase que representa un proceso condicional.
+ * Clase que "simula" un proceso condicional.
  */
 public class ConditionalProcess extends SimpleProcess {
-    /*
-     * Tiempo de procesamiento del proceso.
-     */
     double Tiempo;
 
-    /*
-     * Constructor de la clase ConditionalProcess.
-     */
+    // Constructor
     ConditionalProcess(int ID, double Time) {
         super(ID);
         this.Tiempo = Time;
     }
 
     /*
-     * Método que devuelve el tiempo de procesamiento en milisegundos.
+     * Método, que devuelve el tiempo que tarda el proceso pero en milisegundos.
      */
     public double processTimeMs() {
         return Tiempo * 1000;
     }
 
     /*
-     * Método que devuelve el tipo de proceso.
+     * Método que devuelve la letra que representa el tipo de proceso.
      */
     public String tipoProceso() {
         return "C";

@@ -1,8 +1,8 @@
 /*PriorityPolicy.java */
 package scheduler.scheduling.policies;
 
-import java.util.PriorityQueue;
 import java.util.Comparator;
+import java.util.PriorityQueue;
 import java.util.concurrent.ThreadLocalRandom;
 import scheduler.processing.SimpleProcess;
 
@@ -14,13 +14,10 @@ import scheduler.processing.SimpleProcess;
 
 public class PriorityPolicy extends Policy {
 
-    /* Clase simple para guardar proceso, prioridad y orden de llegada */
+    /* Clase que simula un paquetito para guardar proceso, prioridad y orden de llegada */
     class PriorityPack {
-        // Proceso simple que se guardará en la cola
         SimpleProcess proceso;
-        // Prioridad del proceso
         int prioridad;
-        // Orden de llegada del proceso
         long orden;
 
         // Constructor
@@ -30,7 +27,7 @@ public class PriorityPolicy extends Policy {
             orden = ord;
         }
 
-        // Método para convertir el objeto a String
+        // Método para convertir el objeto a un string.
         @Override
         public String toString() {
             return proceso.toString() + "[prio:" + prioridad + "]";
@@ -38,7 +35,7 @@ public class PriorityPolicy extends Policy {
     }
 
     /*
-     * Cola de prioridad que se encarga de ordenar los procesos.
+     * Cola de prioridad, se encarga de ordenar los procesos.
      * Estan ordenados en paquetes, con el proceso en cuestion, su prioridad y su
      * orden de llegada.
      */
@@ -56,7 +53,7 @@ public class PriorityPolicy extends Policy {
     }
 
     /*
-     * METODO SOBREESCRITO
+     *
      * Nombre del Método: next()
      * Parámetro: Sin parámetros
      * Utilidad: nos devuelve cuál será el proximo proceso en ser atendido, sin
@@ -71,7 +68,7 @@ public class PriorityPolicy extends Policy {
     }
 
     /*
-     * METODO SOBREESCRITO
+     *
      * Nombre del Método: remove()
      * Parámetro: Sin parámetros
      * Utilidad: saca el proceso que se encuentra en la cima de la pila
@@ -85,10 +82,10 @@ public class PriorityPolicy extends Policy {
     }
 
     /*
-     * METODO SOBREESCRITO
+     *
      * Nombre del Método: add()
      * Parámetro: SimpleProcess p
-     * Utilidad: agrega un proceso a la pila
+     * Utilidad: agrega un proceso a la fila.
      */
     @Override
     public void add(SimpleProcess p) {
@@ -105,7 +102,7 @@ public class PriorityPolicy extends Policy {
     }
 
     /*
-     * METODO SOBREESCRITO
+     *
      * Nombre del Método: toString()
      * Parámetro: Sin parámetros
      * Utilidad: nos devuelve una representación en String de la Fila de Procesos
