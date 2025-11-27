@@ -1,3 +1,5 @@
+
+/*ProcessScheduler.java */
 import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -9,16 +11,34 @@ import scheduler.scheduling.policies.LCFSPolicy;
 import scheduler.scheduling.policies.Policy;
 import scheduler.scheduling.policies.PriorityPolicy;
 
+/*
+ * Hecho por Edson Joao Andrés Pereira Alvarado
+ * Carnet: 25000144
+ * Seccion: B
+ */
+
+/*
+ * ProcessScheduler es la clase principal del proyecto.
+ * Se encarga de la ejecución del programa mediante los parametros que recibe en consola.
+ * 
+ */
 public class ProcessScheduler {
     public static void main(String[] args) {
-        // 1. Validación básica de argumentos
+
+        /*
+         * Si no se pasan los 6 argumentos, se muestra un mensaje de error y se sale del
+         * programa.
+         */
         if (args.length != 6) {
             System.out.println("Se deben ingresar 6 argumentos al momento de ejecutar el programa");
             System.out.println("Ejemplo: java ProcessScheduler -politica rango_tiempo_ingreso arith io cond loop");
             System.exit(1);
         }
 
-        // 2. Validar política
+        /*
+         * Recorremos un array con las politicas permitidas y verificamos si el
+         * argumento no.1 para ver si es una politica valida.
+         */
         String[] permitted = { "-fcfs", "-pp", "-lcfs" };
         boolean isValidPolicy = false;
         for (String perm : permitted) {
@@ -28,18 +48,33 @@ public class ProcessScheduler {
             }
         }
 
+        /*
+         * Si el argumento no.1 no es una politica valida, se muestra un mensaje de
+         * error
+         * y se sale del programa.
+         */
         if (!isValidPolicy) {
             System.out.println("El argumento " + args[0] + " no es una politica valida");
             System.exit(1);
         }
 
-        // 3. Parsear rango de tiempo de ingreso
+        /*
+         * Dividimos el argumento no.2 en dos partes, el minimo y el maximo.
+         * Si no se puede dividir en dos partes, se muestra un mensaje de error
+         * y se sale del programa.
+         */
         String[] rangoTiempoIngreso = args[1].split("-");
         if (rangoTiempoIngreso.length != 2) {
             System.out.println("El argumento " + args[1] + " no es un rango valido");
             System.exit(1);
         }
 
+        /*
+         * Convertimos el minimo y el maximo a double.
+         * Si alguno de ellos es menor a 0 o el rango menor NO es menor o igual al
+         * maximo,
+         * se muestra un mensaje de error y se sale del programa.
+         */
         double rangoTiempoIngresoMin = Double.parseDouble(rangoTiempoIngreso[0]);
         double rangoTiempoIngresoMax = Double.parseDouble(rangoTiempoIngreso[1]);
 
@@ -51,7 +86,11 @@ public class ProcessScheduler {
             System.exit(1);
         }
 
-        // 4. Parsear tiempos de servicio por tipo de proceso
+        /*
+         * Convertimos los argumentos de tiempo arith, io, cond y loop a double.
+         * Si alguno de ellos es menor a 0,
+         * se muestra un mensaje de error y se sale del programa.
+         */
         double arith = Double.parseDouble(args[2]);
         double io = Double.parseDouble(args[3]);
         double cond = Double.parseDouble(args[4]);
@@ -62,7 +101,9 @@ public class ProcessScheduler {
             System.exit(1);
         }
 
-        // 5. Crear la política adecuada
+        /*
+         * Creamos la politica segun el argumento no.1.
+         */
         Policy policy = null;
         switch (args[0]) {
             case "-fcfs":
@@ -79,9 +120,20 @@ public class ProcessScheduler {
                 System.exit(1);
         }
 
+        /*
+         * Creo un objeto de tipo AtomicBoolean que dictamina si el programa debe
+         * cotninuar ejecutandose.
+         */
         AtomicBoolean runContinue = new AtomicBoolean(true);
+
+        /*
+         * Creo un objeto de tipo Stats que contiene estadisticas de la simulacion.
+         */
         Stats stats = new Stats();
 
+        /*
+         * Creo un objeto de tipo generador que crea procesos de manera aleatoria.
+         */
         Generador generador = new Generador(
                 policy,
                 arith,
@@ -93,17 +145,31 @@ public class ProcessScheduler {
                 runContinue,
                 stats);
 
+        /*
+         * Creo un objeto de tipo procesador que ejecuta los procesos segun la politica.
+         */
         Procesador procesador = new Procesador(
                 policy,
                 runContinue,
                 stats);
 
+        /*
+         * Creo dos hilos, uno para el generador y otro para el procesador.
+         */
         Thread genThread = new Thread(generador, "Generador");
         Thread cpuThread = new Thread(procesador, "Procesador");
 
+        /*
+         * Inicio los hilos. (Ya me aburri de poner comentarios jajajajaj)
+         */
         genThread.start();
         cpuThread.start();
 
+        /*
+         * Muestro un mensaje de bienvenida y espero a que el usuario presione 'q' y
+         * luego ENTER para
+         * temrinar la simulacion.
+         */
         System.out.println("Simulación iniciada con política: " + policy.getClass().getSimpleName());
         System.out.println("Presione 'q' y ENTER para terminar la simulación.");
 
@@ -121,6 +187,10 @@ public class ProcessScheduler {
             e.printStackTrace();
         }
 
+        /*
+         * Espero a que los hilos terminen.
+         * Si no hubo problema, muestro un resumen final con los datos de la simulacion.
+         */
         try {
             genThread.join();
             cpuThread.join();
